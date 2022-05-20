@@ -13,3 +13,6 @@ credit = pd.read_excel (xlsx,
                      sheet_name="Credit"
                      )
 
+# Unipivot debit df
+debit_unpiv = debit.melt(id_vars=["Zone", "Region", "District"], var_name="Date", value_name="Balance")
+
