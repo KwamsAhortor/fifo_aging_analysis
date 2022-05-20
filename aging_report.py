@@ -14,5 +14,8 @@ credit = pd.read_excel (xlsx,
                      )
 
 # Unipivot debit df
-debit_unpiv = debit.melt(id_vars=["Zone", "Region", "District"], var_name="Date", value_name="Balance")
+debit_unpiv = debit.melt(id_vars=["Zone", "Region", "District"], var_name="Date", value_name="Funding")
 
+# Change datatypes
+debit_unpiv[["Zone", "Region", "District"]] = debit_unpiv[["Zone", "Region", "District"]].astype(str)
+debit_unpiv["Date"] = pd.to_datetime(debit_unpiv["Date"]).dt.date
