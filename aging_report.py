@@ -1,4 +1,5 @@
 # Import modules
+from matplotlib.pyplot import margins
 import pandas as pd
 import numpy as np
 from datetime import datetime
@@ -80,3 +81,13 @@ df["Fifo Balance"] = FIFO_balance
 
 # Calculate for actual balances
 df["Actual Balance"] = df["Amount"] - df["Fifo Balance"]
+
+
+# Summerize result
+df_out = df.pivot_table(columns='Aging Status',
+                  values='Actual Balance',
+                  index='Name',
+                  aggfunc='sum',
+                  margins=True,
+                  margins_name='Grand Total'
+                  )
