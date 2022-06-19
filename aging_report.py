@@ -47,3 +47,6 @@ choices = [
             ]
 
 df["Aging Status"] = np.select(conditions, choices)
+
+# Merge the two df
+df = df.merge(credit, on="Name")
