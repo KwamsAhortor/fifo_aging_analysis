@@ -56,7 +56,7 @@ df = df.sort_values(by=["Name", "Date"], ascending=True)
 df = df.reset_index(drop=True)
 
 #Calculate for FIFO balances
-balance = []
+FIFO_balance = []
 bal_bf = 0
 indexor = -1
 indexor2 = 0
@@ -66,13 +66,17 @@ for i in df["Amount"]:
    indexor += 1
    if df["Name"][indexor] == dc_columns[indexor2]:
       bal = min(i, df["Total Credit"][indexor] - bal_bf)
-      balance.append(bal)
+      FIFO_balance.append(bal)
       bal_bf += bal
    else:
       bal_bf = 0
       indexor2 += 1
       bal = min(i, df["Total Credit"][indexor] - bal_bf)
-      balance.append(bal)
+      FIFO_balance.append(bal)
       bal_bf += bal
       
-df["Balance"] = balance
+df["Fifo Balance"] = FIFO_balance
+
+
+# Calculate for actual balances
+df["Actual Balance"] = df["Amount"] - df["Fifo Balance"]
