@@ -5,17 +5,16 @@ from datetime import datetime
 from datetime import timedelta
 
 # Load data
-xlsx = r"C:\Users\mfaraday01\Documents\Code\Aging Analysis\credit_debit_records.xlsx"
-debit = pd.read_excel (xlsx, 
+xlsx = r"C:\Users\mfaraday01\Documents\Code\fifo_aging_analysis\fifo_aging_analysis\prefinance.xlsx"
+df = pd.read_excel (xlsx, 
                      sheet_name="Debits"
                      )
 credit = pd.read_excel (xlsx, 
                      sheet_name="Credit"
                      )
 
-# Unipivot debit df
-debit_unpiv = debit.melt(id_vars=["Zone", "Region", "District"], var_name="Date", value_name="Funding")
+# Unipivot df df
+df = df.melt(id_vars=["Name"], var_name="Date", value_name="Amount")
 
 # Change datatypes
-debit_unpiv[["Zone", "Region", "District"]] = debit_unpiv[["Zone", "Region", "District"]].astype(str)
-debit_unpiv["Date"] = pd.to_datetime(debit_unpiv["Date"]).dt.date
+df["Date"] = pd.to_datetime(df["Date"]).dt.date
