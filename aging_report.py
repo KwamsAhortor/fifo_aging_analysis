@@ -54,3 +54,25 @@ df = df.merge(credit, on="Name")
 #Sort and re-index df
 df = df.sort_values(by=["Name", "Date"], ascending=True)
 df = df.reset_index(drop=True)
+
+#Calculate for FIFO balances
+balance = []
+bal_bf = 0
+indexor = -1
+indexor2 = 0
+dc_columns = list(df["Name"].unique())
+
+for i in df["Amount"]:
+   indexor += 1
+   if df["Name"][indexor] == dc_columns[indexor2]:
+      bal = min(i, df["Total Credit"][indexor] - bal_bf)
+      balance.append(bal)
+      bal_bf += bal
+   else:
+      bal_bf = 0
+      indexor2 += 1
+      bal = min(i, df["Total Credit"][indexor] - bal_bf)
+      balance.append(bal)
+      bal_bf += bal
+      
+df["Balance"] = balance
