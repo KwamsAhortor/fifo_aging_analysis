@@ -50,3 +50,7 @@ df["Aging Status"] = np.select(conditions, choices)
 
 # Merge the two df
 df = df.merge(credit, on="Name")
+
+#Sort and re-index df
+df = df.sort_values(by=["Name", "Date"], ascending=True)
+df = df.reset_index(drop=True)
